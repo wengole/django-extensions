@@ -90,7 +90,7 @@ class AdminApp(UnicodeMixin):
         self.options = options
 
     def __iter__(self):
-        for model in get_models_compat(self.app):
+        for model in get_models_compat(self.app.label):
             admin_model = AdminModel(model, **self.options)
 
             for model_re in self.model_res:
@@ -325,7 +325,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.style = color_style()
 
-        installed_apps = dict((a.__name__.rsplit('.', 1)[0], a) for a in get_apps())
+        installed_apps = dict((a.name, a) for a in get_apps())
 
         # Make sure we always have args
         if not args:

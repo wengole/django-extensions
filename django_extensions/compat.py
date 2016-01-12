@@ -72,7 +72,7 @@ def get_apps():
     try:
         # django >= 1.7, to support AppConfig
         from django.apps import apps
-        return [app.models_module for app in apps.get_app_configs() if app.models_module]
+        return [app for app in apps.get_app_configs() if app.models_module]
     except ImportError:
         from django.db import models
         return models.get_apps()
